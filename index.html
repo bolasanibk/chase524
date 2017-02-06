@@ -1,0 +1,315 @@
+<html>
+<head>
+	<title> Check your chase 5/24 status </title>
+	<style>
+	div.button_bar {
+		text-align: right;
+	}
+	
+	td {
+		border: 1px solid black;
+	}
+	</style>
+	
+	<script>
+		num_rows = 0;
+		/*
+		var cut_off = new Date();
+		cut_off.setYear(cut_off.getFullYear() - 2);
+		alert(cut_off);
+		var current = new Date();
+		current.setMonth(current.getMonth()+1);
+		current.setDate(1);
+		alert(current)
+		alert(cut_off < current);
+		*/
+		var all_cards = {
+"Amex Ameriprise Gold" : 1,
+"Amex Ameriprise Platinum" : 1,
+"Amex Blue Cash Everyday" : 1,
+"Amex Blue Cash Preferred" : 1,
+"Amex Blue Sky" : 1,
+"Amex Blue Sky Preferred" : 1,
+"Amex Business Rewards Gold (BRG)" : 1,
+"Amex Delta Reserve" : 1,
+"Amex Everyday" : 1,
+"Amex Everyday Preferred" : 1,
+"Amex Gold" : 1,
+"Amex Gold Delta" : 1,
+"Amex Gold Delta Business" : 0,
+"Amex Green" : 1,
+"Amex HHonors" : 1,
+"Amex HHonors Surpass" : 1,
+"Amex Mercedes-Benz" : 1,
+"Amex Mercedes-Benz Platinum" : 1,
+"Amex Platinum" : 1,
+"Amex Platinum Business" : 0,
+"Amex Platinum Delta" : 1,
+"Amex Platinum Delta Business" : 0,
+"Amex Premier Rewards Gold (PRG)" : 1,
+"Amex Schwab Platinum" : 1,
+"Amex Starwood (SPG) Business" : 0,
+"Amex Starwood Preferred Guest (SPG)" : 1,
+"Banco Popular de Puerto Rico Avianca Vida" : 1,
+"Banco Popular de Puerto Rico Avianca Vuela" : 1,
+"Bank of America Alaska" : 1,
+"Bank of America Alaska Business" : 0,
+"Bank of America Asiana" : 1,
+"Bank of America Asiana Business" : 0,
+"Bank of America Bank Americard Cash Rewards" : 1,
+"Bank of America Merrill+" : 1,
+"Bank of America Spirit" : 1,
+"Bank of America Virgin Atlantic" : 1,
+"Bank of America Virgin Atlantic Black Card" : 1,
+"Bank of America Virgin Atlantic White Card" : 1,
+"Barclays AAdvantage Aviator Red" : 1,
+"Barclays Arrival" : 1,
+"Barclays Arrival +" : 1,
+"Barclays Frontier" : 1,
+"Barclays Frontier Business" : 0,
+"Barclays Hawaiian" : 1,
+"Barclays Hawaiian Business" : 0,
+"Barclays JetBlue" : 1,
+"Barclays JetBlue Business" : 0,
+"Barclays JetBlue Plus" : 1,
+"Barclays Lufthansa" : 1,
+"Barclays Wyndham" : 1,
+"Barclays Wyndham (AF)" : 1,
+"BBVA Compass NBA Amex" : 1,
+"Capital One Quicksilver Rewards" : 1,
+"Capital One QuicksilverOne Rewards" : 1,
+"Capital One Spark Cash " : 1,
+"Capital One Venture One Rewards" : 1,
+"Capital One Venture Rewards" : 1,
+"Chase British Airways" : 1,
+"Chase Fairmont" : 1,
+"Chase Freedom" : 1,
+"Chase Freedom Unlimited" : 1,
+"Chase Hyatt" : 1,
+"Chase IHG" : 1,
+"Chase Ink Cash" : 0,
+"Chase Ink Plus" : 0,
+"Chase Ink Preferred" : 0,			
+"Chase Marriott" : 1,
+"Chase Marriott Business" : 0,
+"Chase Ritz Carlton" : 1,
+"Chase Sapphire Preferred" : 1,
+"Chase Sapphire Reserve" : 1,
+"Chase Southwest Plus" : 1,
+"Chase Southwest Premier" : 1,
+"Chase Southwest Premier Business" : 0,
+"Chase United Club" : 1,
+"Chase United Explorer" : 1,
+"Chase United Explorer Business" : 0,
+"Citi AAdvantage Executive" : 1,
+"Citi AAdvantage Gold" : 1,
+"Citi AAdvantage Platinum" : 1,
+"Citi AAdvantage Platinum Business" : 0,
+"Citi Expedia+" : 1,
+"Citi Expedia+ Voyager" : 1,
+"Citi Hilton Reserve" : 1,
+"Citi Hilton Visa" : 1,
+"Citi Prestige" : 1,
+"Citi ThankYou Preferred" : 1,
+"Citi ThankYou Preferred Student" : 1,
+"Citi ThankYou Premier" : 1,
+"Comenity Capital Virgin America" : 1,
+"Comenity Capital Virgin America Premium" : 1,
+"Discover Discover It" : 1,
+"Discover Discover It Miles" : 1,
+"TD Bank Aeroplan" : 1,
+"US Bank Cash+" : 1,
+"US Bank Club Carlson" : 1,
+"US Bank Club Carlson Business" : 0,
+"US Bank Club Carlson Premier" : 1,
+"US Bank FlexPerks Select (Visa)" : 1,
+"US Bank FlexPerks Select+ (Amex)" : 1,
+"US Bank FlexPerks Travel Rewards (Amex)" : 1,
+"US Bank FlexPerks Travel Rewards (Visa)" : 1,
+"US Bank LANPASS" : 1,
+"Wal-Mart Walmart Credit Card" : 1,
+"Wells Fargo Wells Fargo Propel 365" : 1,
+"Wells Fargo Wells Fargo Propel World" : 1,
+"Other Visa/Mastercard/Amex card" : 1,
+"Store Card (Only usable in specific store)" : 0
+};
+
+var unrestricted_cards = [
+"Chase IHG",
+"Chase Hyatt",
+"Chase Fairmont",
+"Chase Ritz-Carlton",
+"Chase Marriott Business",
+"Chase British Airways",
+"Chase Disney Rewards",
+"Chase Disney Premier",
+"Chase Amazon",
+"Chase AARP"
+];
+
+var all_chase_cards = [
+"Chase IHG",
+"Chase Hyatt",
+"Chase Fairmont",
+"Chase Ritz-Carlton",
+"Chase Marriott Business",
+"Chase British Airways",
+"Chase Disney Rewards",
+"Chase Disney Premier",
+"Chase Amazon",
+"Chase AARP",
+"Chase Slate",
+"Chase Freedom",
+"Chase Freedom Unlimited",
+"Chase Sapphire Preferred",
+"Chase Sapphire Reserve",
+"Chase Ink Cash (Business)",
+"Chase Ink Plus (Business)",
+"Chase Ink Preferred (Business)",
+"Chase United Explorer",
+"Chase United Club",
+"Chase United Explorer Business",
+"Chase Marriott",
+"Chase Southwest Plus",
+"Chase Southwest Premier",
+"Chase Southwest Premier Business"]
+;
+
+		var counted_cards = ['a','b'];
+		var current_row = 0;
+		
+		function add_row() {
+			var table_element = document.getElementById("list_of_cards");
+			var row = table_element.insertRow(-1);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var card_list_element = document.createElement('select');
+			card_list_element.id = 'card_name_' + current_row;
+			var index = 0;
+			for(element in all_cards)
+			{
+			   var opt = document.createElement("option");
+			   opt.value = element;
+			   opt.innerHTML = element; // whatever property it has
+
+			   // then append it to the select element
+			   card_list_element.appendChild(opt);
+			   index++;
+			}
+			num_rows += 1;
+			cell1.innerHTML = num_rows;
+			cell2.appendChild(card_list_element);
+			//cell1.innerHTML = '<select></select>';
+			cell3.innerHTML = '<input type="date" id="start_date_' + current_row + '">';
+			current_row++;
+		}
+		
+		function count_cards() {
+			var num_cards = 0;
+			var current = new Date();
+			current.setMonth(current.getMonth()+1);
+			
+			var cut_off = new Date();
+			cut_off.setYear(cut_off.getFullYear() - 2);
+			var above_limit = false;
+			var date_to_4 = new Date();
+			
+			cards = [];
+			for (var i=0; i< num_rows; i++) {
+				var date_id = "start_date_" + i;
+				var name_id = 'card_name_' + i;
+				d_string = document.getElementById(date_id).value;
+				d_comps = d_string.split("-");
+				start_date = new Date(d_comps[0], d_comps[1]-1, d_comps[2]);
+				start_date.setHours(start_date.getHours() + 7);
+				card_name = document.getElementById(name_id).value;
+				cards[i] = {"name": card_name, "start_date": start_date};					
+			}
+			
+			
+			cards.sort(function(a, b) {
+			    return a.start_date - b.start_date
+			});
+			
+			for (var i=0; i<num_rows; i++) {
+				if (cards[i].start_date >= cut_off) {
+					if (all_cards[cards[i].name]) {
+						num_cards++;
+						if (num_cards == 5) {
+							above_limit = true;
+							date_to_4.setFullYear(start_date.getFullYear()+2);
+							date_to_4.setMonth(start_date.getMonth() + 1);
+							date_to_4.setDate(1);
+						}
+					}
+				}
+			}
+			
+			/*
+			for (var i = 0; i < num_rows; i++) {
+				var date_id = "start_date_" + i;
+				var name_id = 'card_name_' + i;
+				d_string = document.getElementById(date_id).value;
+				d_comps = d_string.split("-");
+				start_date = new Date(d_comps[0], d_comps[1]-1, d_comps[2]);
+				start_date.setHours(start_date.getHours() + 7);
+				card_name = document.getElementById(name_id).value
+				if (start_date >= cut_off) {
+					if (all_cards[card_name]) {
+						num_cards++;
+						if (num_cards == 5) {
+							above_limit = true;
+							date_to_4.setFullYear(start_date.getFullYear()+2);
+							date_to_4.setMonth(start_date.getMonth() + 1);
+							date_to_4.setDate(1);
+						}
+					}
+				}
+			}*/
+			
+			if (above_limit) {
+				available_cards = unrestricted_cards;
+			} else {
+				available_cards = all_chase_cards;
+			}
+			
+			//available_cards = available_cards - existing_cards;
+			document.getElementById("AboveFive").innerHTML = above_limit;
+			document.getElementById("DateTo4").innerHTML = date_to_4;
+			document.getElementById("AvailableCards").innerHTML = available_cards.join('<br/>');
+		}
+</script>
+</head>
+<body>
+	<div style='text-align:right;width:100%'><a href='https://goo.gl/forms/Cd4IKFrT5ct5C5NY2' target='new'>Feedback</a></div><hr/>
+	Click on the 'Add Card' button to start adding your card details.<br/><br/>
+	<div class="button_bar">
+		<input type="button" value="Add Card" onclick="javascript:add_row()">
+		<input type="button" value="Count Cards" onclick="javascript:count_cards()">
+	</div>
+	<div>
+	<table id="list_of_cards" style="width:100%;border:1px solid black">
+		<tr>
+			<td> Index </td>
+			<td> Credit Card </td>
+			<td> Open Date </td>
+		</tr>
+	</table>
+	</div><br/>
+	Are you above 5/24 limit: <div id="AboveFive"></div>
+	Date when you will be under 5/24: <div id="DateTo4"></div>
+	What Chase cards you can currently apply for: <div id="AvailableCards"></div>
+	
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-91426112-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
